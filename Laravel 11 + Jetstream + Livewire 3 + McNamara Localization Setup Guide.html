@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laravel 11 + Jetstream + Livewire 3 + McNamara Localization Setup Guide</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" rel="stylesheet">
+        <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+
+
+<body class="my-12 bg-gray-100 text-gray-800">
+<div class=" max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <h1 class="text-3xl text-center font-bold mb-6">Laravel 11 + Jetstream + Livewire 3 + McNamara Localization Setup Guide</h1>
+    <p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">Welcome to this comprehensive guide on setting up a Laravel 11 application with Jetstream, Livewire 3, and McNamara Localization. This configuration is ideal for building modern, multilingual web applications with a streamlined authentication system and dynamic front-end components.</p>
+
+<h2 class="text-2xl text-center font-semibold mb-4">What will you learn</h2>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">In this guide, you will learn how to:</p>
+
+<ul class="max-w-md space-y-1 text-lg text-gray-500 list-disc list-inside dark:text-gray-400">
+    <li>Install Laravel 11 and configure your development environment.</li>
+    <li>Set up Jetstream with Livewire to handle authentication and user management.</li>
+    <li>Integrate McNamara Localization to support multiple languages in your application.</li>
+    <li>Ensure that Livewire components respect locale settings for a seamless multilingual experience.</li>
+</ul>
+
+<h2 class="text-2xl text-center font-semibold mb-4">Prerequisites</h2>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">Before starting, make sure you have the following software installed on your system:</p>
+<ul class="max-w-md space-y-1 text-lg text-gray-500 list-disc list-inside dark:text-gray-400">
+    <li>PHP 8.2 or higher</li>
+    <li>Composer</li>
+    <li>Node.js and npm</li>
+    <li>A database server (MySQL, MariaDB, etc.)</li>
+</ul>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">You should also have a basic understanding of Laravel, PHP, and web development principles.</p>
+<h2 class="text-2xl text-center font-semibold mb-4">Installing Laravel 11</h2>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">To begin, you need to install Laravel 11. Follow the steps below to set up your Laravel project:</p>
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 1: Install Laravel</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">Run the following command in your terminal to create a new Laravel project:</p>
+<pre class="bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre"><code>composer create-project laravel/laravel project-name</code></pre>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">This command will create a new Laravel application in a directory named <code>project-name</code>.</p>
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 2: Navigate to the Project Directory</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">Once the installation is complete, navigate to your project directory:</p>
+<pre class="bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre"><code>cd project-name</code></pre>
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 3: Configure Environment Settings</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">Copy the <code>.env.example</code> file to <code>.env</code> and set up your environment variables, including your database connection:</p>
+<pre class="bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre"><code>cp .env.example .env</code></pre>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">Open the <code>.env</code> file and configure your database settings:</p>
+<pre class="bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre"><code>DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database_name
+DB_USERNAME=your_database_user
+DB_PASSWORD=your_database_password</code></pre>
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 4: Generate an Application Key</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">Generate an application key by running the following command. This will set the APP_KEY value in your .env file.</p>
+<pre class="bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre"><code>php artisan key:generate</code></pre>
+
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 5: Start the Development Server</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">Finally, you can start the development server to ensure everything is working:</p>
+<pre class="bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre"><code>php artisan serve</code></pre>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">You should now see your Laravel application running at <code>http://localhost:8000</code>.</p>
+<h2 class="text-2xl text-center font-semibold mb-4"> Installing Jetstream with Livewire</h2>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">Next, we'll install Jetstream, a Laravel package that provides a starter kit for authentication, user profiles, and more. We'll be using Livewire as the stack for dynamic front-end components.</p>
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 1: Install Jetstream</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">Run the following command to install Jetstream via Composer:</p>
+<pre class="bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre"><code>composer require laravel/jetstream</code></pre>
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 2: Install Jetstream with Livewire</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">After installing Jetstream, you can use the Artisan command to set it up with Livewire:</p>
+<pre class="bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre"><code>php artisan jetstream:install livewire</code></pre>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">This command will generate the necessary files and routes for Jetstream with Livewire as the front-end stack.</p>
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 3: Install NPM Dependencies</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">To compile your front-end assets, you'll need to install the required NPM dependencies:</p>
+<pre class="bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre"><code>npm install</code></pre>
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 4: Compile Assets</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">Once the dependencies are installed, you can compile your assets using:</p>
+<pre class="bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre"><code>npm run dev</code></pre>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">This command will compile your CSS and JavaScript files, preparing them for development.</p>
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 5: Run Migrations</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">Jetstream comes with built-in authentication and user management features, which require database tables. Run the migrations to create these tables:</p>
+<pre class="bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre"><code>php artisan migrate</code></pre>
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 6: Test the Setup</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">To test the installation, you can register a new user and log in to your application by visiting <code>http://localhost:8000/register</code> or <code>http://localhost:8000/login</code>.</p>
+
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">Your Laravel application should now be set up with Jetstream and Livewire, ready to be customized further.</p>
+
+<h2 class="text-2xl text-center font-semibold mb-4"> Setting Up McNamara Localization</h2>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">McNamara Localization is a popular package for adding multilingual support to your Laravel applications. Follow these steps to set up localization in your project.</p>
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 1: Install the Localization Package</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">First, install the <code>mcamara/laravel-localization</code> package using Composer:</p>
+<pre class="bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre"><code>composer require mcamara/laravel-localization</code></pre>
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 2: Publish the Configuration File</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">Next, publish the configuration file for the package by running the following Artisan command:</p>
+<pre class="bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre"><code>php artisan vendor:publish --provider="Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider"</code></pre>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">This will create a <code>laravellocalization.php</code> file in the <code>config</code> directory, which you can customize as needed.</p>
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 3: Configure Locales</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">Open the <code>config/laravellocalization.php</code> file and define the locales you want to support in your application. For example:</p>
+<pre class="bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre"><code>'supportedLocales' => [
+    'en' => ['name' => 'English', 'script' => 'Latn', 'native' => 'English'],
+    'es' => ['name' => 'Spanish', 'script' => 'Latn', 'native' => 'Español'],
+    'fr' => ['name' => 'French', 'script' => 'Latn', 'native' => 'Français'],
+    'sr' => ['name' => 'Serbian', 'script' => 'Latn', 'native' => 'Српски'],
+],</code></pre>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">Customize the locales as per your needs.</p>
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 4: Register Middleware</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">To enable localization, you need to register the middleware provided by the package. In Laravel 11, this is done in the <code>bootstrap/app.php</code> file. Add the following lines:</p>
+<pre class="bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre"><code>$app->middleware([
+    ->withMiddleware(function (Middleware $middleware) {
+        $middleware->alias([
+            /**** OTHER MIDDLEWARE ALIASES ****/
+            'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
+            'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
+            'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
+            'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
+            'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
+        ]);
+    })
+]);</code></pre>
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 5: Update Routes</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">To ensure your routes are localized, you need to wrap them in a localization group. Open your <code>routes/web.php</code> file and update it as follows:</p>
+<pre class="bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre"><code>use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
+Route::group(
+    ['prefix' => LaravelLocalization::setLocale()],
+    function () {
+        // Your localized routes here
+    }
+);</code></pre>
+
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">All routes within this group will automatically be prefixed with the selected locale (e.g., <code>/en</code>, <code>/es</code>).</p>
+
+
+<h3 class="text-2xl text-center font-semibold mb-4">Why Localization is Needed for Fortify and Jetstream Routes</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">It's important to also localize the routes provided by Fortify and Jetstream to ensure consistent multilingual support throughout your application. By default, these routes are not localized, which can lead to a fragmented user experience.</p>
+
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">To localize Fortify routes, open the <code>vendor\laravel\fortify\routes.php</code> file and wrap the routes in the following group:</p>
+<pre class="bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre"><code>Route::group(['prefix' => LaravelLocalization::setLocale(),
+    'middleware' => config('fortify.middleware', ['web'])], function () {
+    $enableViews = config('fortify.views', true);
+    // Fortify routes...
+    </code></pre>
+
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">For Jetstream's Livewire routes, open the <code>vendor\laravel\jetstream\routes\livewire.php</code> file and modify it as follows:</p>
+<pre class="bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre"><code>Route::group(['prefix' => LaravelLocalization::setLocale(),
+    'middleware' =>config('jetstream.middleware', ['web'])], function () {
+    if (Jetstream::hasTermsAndPrivacyPolicyFeature()) {
+
+    Route::get('/terms-of-service', [TermsOfServiceController::class, 'show'])
+    ->name('terms.show');
+
+    Route::get('/privacy-policy', [PrivacyPolicyController::class, 'show'])
+    ->name('policy.show');
+    });
+    </code></pre>
+
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">By making these changes, all authentication-related routes will respect the selected locale, providing a seamless multilingual experience.</p>
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 6: Test Localization</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">To test if localization is working, navigate to a route in your application and manually change the locale in the URL (e.g., <code>http://localhost:8000/en</code> or <code>http://localhost:8000/es</code>). You should see the content change according to the selected language.</p>
+<h2 class="text-2xl text-center font-semibold mb-4"> Handling Livewire Localization Issues</h2>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">When using Livewire with McNamara Localization, you might encounter an issue where all <code>POST</code> requests are interpreted as <code>GET</code> requests, resulting in a 404 error at the <code>/livewire/update</code> route. This issue arises because Livewire's update endpoint does not automatically support localization, leading to communication problems between the front-end and back-end components.</p>
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 1: Understand the Issue</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">The <code>/livewire/update</code> route is crucial for Livewire's functionality, as it handles the updates between the front-end and back-end of Livewire components. When localization is enabled, Livewire fails to recognize this route correctly, causing all requests to be treated as <code>GET</code> requests, which leads to the 404 error.</p>
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 2: Localize the Livewire Update Route</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">To resolve this issue, you need to manually localize the <code>/livewire/update</code> route. This can be done by adding the following code to your <code>routes/web.php</code> file:</p>
+<pre class="bg-gray-100 p-4 rounded-lg overflow-auto whitespace-pre"><code>Livewire::setUpdateRoute(function ($handle) {
+    return Route::post('/livewire/update', $handle);
+});</code></pre>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">This code ensures that the Livewire update route respects the localization prefix, allowing proper communication between Livewire components regardless of the selected locale.</p>
+
+<h3 class="text-2xl text-center font-semibold mb-4">Step 3: Test the Livewire Integration</h3>
+<p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">After adding the localized route, test your Livewire components by interacting with them in different languages. If everything is set up correctly, the components should now function without any errors, regardless of the current locale.</p>
+
+    <h2 class="text-2xl text-center font-semibold mb-4">Final Touch</h2>
+    <p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">With all the configuration steps complete, the final task is to implement a language switcher component. This component will allow users to seamlessly change the language of the application. The language switcher can be placed in the navigation bar or any accessible area of your application. It should trigger a route change that updates the application's locale based on the user's selection. Once the locale is set, the application will automatically load the corresponding translations for all content, ensuring a smooth multilingual experience.</p>
+    <h2 class="text-2xl text-center font-semibold mb-4">Conclusion</h2>
+    <p class="mb-6 text-lg text-center text-gray-500 dark:text-gray-400">By following the steps outlined in this guide, you have successfully set up a multilingual Laravel application using Laravel 11, Jetstream, Livewire 3, and McNamara Localization. Congratulations on completing this setup, and best of luck with your multilingual Laravel project!</p>
+
+</div>
+</body>
+</html>
